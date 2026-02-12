@@ -1,0 +1,22 @@
+//
+// Created by Kok on 2/12/26.
+//
+
+#ifndef ESP32S3_APP_STATE_H
+#define ESP32S3_APP_STATE_H
+
+#include "timer.h"
+#include "task_scheduler.h"
+
+typedef struct {
+    SCHEDULER_TaskTypeDef LedTask;
+} APP_Tasks;
+
+typedef struct {
+    TIMER_HandleTypeDef *htim;
+    APP_Tasks *Tasks;
+} APP_State;
+
+extern APP_State gAppState;
+
+#endif //ESP32S3_APP_STATE_H
