@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "esp_log.h"
+
 static LOGGER_TypeDef hlogger;
 
 /**
@@ -105,17 +107,33 @@ LOGGER_ErrorTypeDef LOGGER_SetLevel(LOGGER_LevelTypeDef Level) {
 }
 
 /**
+ * @brief Setup peripherals required for logger to have basic functionality (LED, GPIOs, etc.)
+ */
+__weak void LOGGER_InitBasicCB() {}
+
+/**
  * @brief Setup peripherals required for logger to function properly. This method is called inside LOGGER_Init()
  * @return 0 -> OK\n 1 -> ERROR
  */
 __weak uint8_t LOGGER_InitCB() {return 0;}
 
 /**
+ * @brief Clear resources assigned while using the logger
+ * @return 0 -> OK\n 1 -> ERROR
+ */
+__weak uint8_t LOGGER_DeInitCB() {return 0;}
+
+/**
+ * @brief Log basic information using peripherals configured with LOGGER_InitBasicCB()
+ */
+__weak void LOGGER_LogBasicCB() {}
+
+/**
  * @brief Use the configured peripherals to output log message
  * @param Event Logger event
  * @return 0 -> OK\n 1 -> ERROR
  */
-__weak uint8_t LOGGER_LogCB(LOGGER_EventTypeDef *Event) {return 0;}
+// __weak uint8_t LOGGER_LogCB(LOGGER_EventTypeDef *Event) {return 0;}
 
 /**
  * @brief Handle cases where the error is fatal. This method is called when LOGGER_Log() is called with fatal log.

@@ -1,5 +1,3 @@
-#include <esp_log.h>
-
 #include "app_state.h"
 #include "led_strip.h"
 #include "driver/gptimer.h"
@@ -7,6 +5,7 @@
 #include "power.h"
 #include "timer.h"
 #include "led.h"
+#include "log.h"
 
 bool IRAM_ATTR tim_callback(gptimer_handle_t timer, const gptimer_alarm_event_data_t *edata, void *user_ctx);
 
@@ -41,6 +40,10 @@ void app_main(void) {
     if (LED_Config() != ESP_OK) {
         while (1);
     }
+
+    LOGGER_Init();
+    LOGGER_Enable();
+    LOGGER_SetLevel(LOGGER_LEVEL_DEBUG);
 
     LED_StartTask();
 }
